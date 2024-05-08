@@ -1,95 +1,42 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Catalog from "@/components/pages/trang-chu/catalog";
+import Slide from "@/components/pages/trang-chu/slide";
+import SlideCatalog from "@/components/pages/trang-chu/slideCatalog";
 
-export default function Home() {
+const Home = async () => {
+  const getData = async (url) => {
+    const res = await fetch(url)
+    const data = await res.json()
+    return data
+  }
+
+  const newP = await getData("https://ophim1.com/danh-sach/phim-moi-cap-nhat")
+  const moiP = await getData("https://ophim1.com/v1/api/danh-sach/phim-moi-nhat")
+
+  const leP = await getData("https://ophim1.com/v1/api/danh-sach/phim-le")
+  const boP = await getData("https://ophim1.com/v1/api/danh-sach/phim-bo")
+  const sapChieuP = await getData("https://ophim1.com/v1/api/danh-sach/phim-sap-chieu")
+  const tvS = await getData("https://ophim1.com/v1/api/danh-sach/tv-shows")
+  const anime = await getData("https://ophim1.com/v1/api/danh-sach/hoat-hinh")
+
+
+  const movies = [
+    {...leP.data},
+    {...boP.data},
+    {...anime.data},
+    {...tvS.data},
+    {...sapChieuP.data}, 
+  ]
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <Slide data={moiP.data}/>
+      {movies.map((data, index) => (
+        <SlideCatalog key={index} data={data}/>
+      ))}
+      <Catalog data={newP.items.slice(0,6)} uImg={newP.pathImage}/>
+    </>
   );
 }
+
+export default Home
