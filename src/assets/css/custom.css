@@ -1,0 +1,55 @@
+.list_vd li a {
+     color: white;
+}
+
+.list_vd li a:hover {
+     color: #2F80ED;
+}
+
+.qr_code_vd {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.qr_code_title {
+     text-align: center;
+}
+
+/* trang xem phim */
+.video_vd_vvv {
+     margin-top: -120px;
+}
+
+.video_vd_test {
+     display: flex;
+     justify-content: center;
+     margin-top: 10px;
+     margin-top: 10px;
+}
+
+.video_vd_test video {
+     border-radius: 10px;
+}
+
+.content_Vd {
+     text-align: center;
+     justify-content: center !important;
+}
+
+.series__title.active a {
+     color: #2F80ED;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+     width: 8px !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+     border-radius: 10px !important;
+}
+
